@@ -2,6 +2,7 @@ package com.iheb.tracker.service;
 
 import com.iheb.tracker.exception.ResourceNotFoundException;
 import com.iheb.tracker.model.Application;
+import com.iheb.tracker.model.Status;
 import com.iheb.tracker.repository.ApplicationRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,18 @@ public class ApplicationService {
         this.repository = repository;
     }
 
-    public List<Application> findAll() {
+    public List<Application> findAll(Status status, String search) {
+        boolean hasSearch = search != null && !search.isBlank();
+
+        if (status != null && hasSearch) {
+            return repository.findByStatusAndCompanyContainingIgnoreCase(status, search.trim());
+        }
+        if (status != null) {
+            return repository.findByStatus(status);
+        }
+        if (hasSearch) {
+            return repository.findByCompanyContainingIgnoreCase(search.trim());
+        }
         return repository.findAll();
     }
 

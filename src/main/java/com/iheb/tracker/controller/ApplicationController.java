@@ -1,6 +1,7 @@
 package com.iheb.tracker.controller;
 
 import com.iheb.tracker.model.Application;
+import com.iheb.tracker.model.Status;
 import com.iheb.tracker.service.ApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,9 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public List<Application> getAll() {
-        return service.findAll();
+    public List<Application> getAll(@RequestParam(required = false) Status status,
+                                    @RequestParam(required = false) String search) {
+        return service.findAll(status, search);
     }
 
     @GetMapping("/{id}")
