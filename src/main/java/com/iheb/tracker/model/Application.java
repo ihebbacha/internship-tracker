@@ -1,6 +1,7 @@
 package com.iheb.tracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -11,17 +12,20 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Company is required")
     @Column(nullable = false)
     private String company;
-
+    @NotBlank(message = "Position is required")
     @Column(nullable = false)
     private String position;
 
     private String city;
 
+    @Size(max = 500, message = "Offer link is too long (max 500 characters)")
     @Column(length = 500)
     private String offerUrl;
 
+    @NotNull(message = "Status is required")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
@@ -30,6 +34,7 @@ public class Application {
 
     private LocalDate followUpDate;
 
+    @Size(max = 2000, message = "Notes are too long (max 2000 characters)")
     @Column(length = 2000)
     private String notes;
 

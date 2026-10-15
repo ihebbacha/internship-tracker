@@ -2,6 +2,7 @@ package com.iheb.tracker.controller;
 
 import com.iheb.tracker.model.Application;
 import com.iheb.tracker.service.ApplicationService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class ApplicationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Application create(@RequestBody Application application) {
+    public Application create(@Valid @RequestBody Application application) {
         return service.create(application);
     }
 
     @PutMapping("/{id}")
-    public Application update(@PathVariable Long id, @RequestBody Application application) {
+    public Application update(@PathVariable Long id, @Valid @RequestBody Application application) {
         return service.update(id, application);
     }
 

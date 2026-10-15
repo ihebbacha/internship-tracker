@@ -1,10 +1,9 @@
 package com.iheb.tracker.service;
 
+import com.iheb.tracker.exception.ResourceNotFoundException;
 import com.iheb.tracker.model.Application;
 import com.iheb.tracker.repository.ApplicationRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ApplicationService {
 
     public Application findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Application " + id + " not found"));
     }
 
     public Application create(Application application) {
@@ -46,7 +45,7 @@ public class ApplicationService {
 
     public void delete(Long id) {
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found");
+            throw new ResourceNotFoundException("Application " + id + " not found");
         }
         repository.deleteById(id);
     }
