@@ -1,5 +1,7 @@
 package com.iheb.tracker.controller;
 
+import com.iheb.tracker.dto.LoginRequest;
+import com.iheb.tracker.dto.LoginResponse;
 import com.iheb.tracker.dto.RegisterRequest;
 import com.iheb.tracker.dto.UserResponse;
 import com.iheb.tracker.service.AuthService;
@@ -21,5 +23,9 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse register(@Valid @RequestBody RegisterRequest request) {
         return authService.register(request);
+    }
+    @PostMapping("/login")
+    public LoginResponse login(@Valid @RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 }
